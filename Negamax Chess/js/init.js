@@ -11,12 +11,12 @@ function InitFilesRanksBrd() {
 	var rank = RANKS.RANK_1;
 	var sq = SQUARES.A1;
 
-	for(index = 0; index < BRD_SQ_NUM; ++index) {
+	for(index = 0; index < BRD_SQ_NUM; ++index) { //set all files/ranks=100
 		FilesBrd[index] = SQUARES.OFFBOARD;
 		RanksBrd[index] = SQUARES.OFFBOARD;
 	}
 
-	for(rank = RANKS.RANK_1; rank <= RANKS.RANK_8; ++rank) {
+	for(rank = RANKS.RANK_1; rank <= RANKS.RANK_8; ++rank) { //files/rankbrd=file/rank
 		for(file = FILES.FILE_A; file <= FILES.FILE_H; ++file) {
 			sq = FR2SQ(file,rank);
 			FilesBrd[sq] = file;
@@ -66,7 +66,7 @@ function InitSq120To64() {
 
 }
 
-function InitBoardVars() {
+function InitBoardVars() { //history + movePosKey reset
 
 	var index = 0;
 	for(index = 0; index < MAXGAMEMOVES; ++index) {
@@ -92,16 +92,15 @@ function InitBoardSquares() {
 	var rankName;
 	var fileName;
 	var divString;
-	var lastLight = 0;
-	var rankIter = 0;
-	var fileIter = 0;
+	var rank = 0;
+	var file = 0;
 	var lightString;
 
-	for(rankIter = RANKS.RANK_8; rankIter >= RANKS.RANK_1; rankIter--) {
+	for(rank = RANKS.RANK_8; rank >= RANKS.RANK_1; rank--) {
 		light = !light;
-		rankName = "rank" + (rankIter+1);
-		for(fileIter = FILES.FILE_A; fileIter <= FILES.FILE_H; fileIter++) {
-			fileName = "file" + (fileIter+1);
+		rankName = "rank" + (rank+1);
+		for(file = FILES.FILE_A; file <= FILES.FILE_H; file++) {
+			fileName = "file" + (file+1);
 
 			if(light==0) lightString="Light";
 			else lightString = "Dark";
@@ -117,15 +116,15 @@ function InitBoardSquares() {
 	var rankName;
 	var fileName;
 	var divString;
-	var rankIter;
-	var fileIter;
+	var rank;
+	var file;
 	var lightString;
 
-	for(rankIter = RANKS.RANK_8; rankIter >= RANKS.RANK_1; rankIter--) {
+	for(rank = RANKS.RANK_8; rank >= RANKS.RANK_1; rank--) {
 		light = !light;
-		rankName = "rank" + (rankIter + 1);
-		for(fileIter = FILES.FILE_A; fileIter <= FILES.FILE_H; fileIter++) {
-			fileName = "file" + (fileIter + 1);
+		rankName = "rank" + (rank + 1);
+		for(file = FILES.FILE_A; file <= FILES.FILE_H; file++) {
+			fileName = "file" + (file + 1);
 			if(light == 0) lightString="bg-light";
 			else lightString = "bg-info";
 			light^=1;
@@ -140,12 +139,12 @@ var mostLeastValueValue = [ 0, 100, 200, 300, 400, 500, 600, 100, 200, 300, 400,
 var mostLeastValueScores = new Array(14 * 14);
 
 function InitmostLeastValue() {
-	var Attacker;
-	var Victim;
+	var capturer;
+	var captured;
 
-	for(Attacker = PIECES.wP; Attacker <= PIECES.bK; ++Attacker) {
-		for(Victim = PIECES.wP; Victim <= PIECES.bK; ++Victim) {
-			mostLeastValueScores[Victim * 14 + Attacker] = mostLeastValueValue[Victim] + 6 - (mostLeastValueValue[Attacker]/100);
+	for(capturer = PIECES.wP; capturer <= PIECES.bK; ++capturer) {
+		for(captured = PIECES.wP; captured <= PIECES.bK; ++captured) {
+			mostLeastValueScores[captured * 14 + capturer] = mostLeastValueValue[captured] + 6 - (mostLeastValueValue[capturer]/100);
 		}
 	}
 
