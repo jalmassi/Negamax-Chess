@@ -38,7 +38,7 @@ function SetInitialBoardPieces() {
 		sq120 = SQ120(sq);
 		pce = game.pieces[sq120];
 		if(pce >= PIECES.wP && pce <= PIECES.bK) {
-			AddGUIPiece(sq120, pce);
+			addPiece(sq120, pce);
 		}
 	}
 }
@@ -114,7 +114,7 @@ function MakeUserMove() {
 		if(parsed != NOMOVE) {
 			MakeMove(parsed);
 			PrintBoard();
-			MoveGUIPiece(parsed);
+			movePiece(parsed);
 			CheckAndSet();
 			PreSearch();
 		}
@@ -139,7 +139,7 @@ function PieceIsOnSq(sq, top, left) {
 
 }
 
-function RemoveGUIPiece(sq) {
+function removePiece(sq) {
 
 	$('.Piece').each( function(index) {
 		if(PieceIsOnSq(sq, $(this).position().top, $(this).position().left) == BOOL.TRUE) {
@@ -149,7 +149,7 @@ function RemoveGUIPiece(sq) {
 
 }
 
-function AddGUIPiece(sq, pce) {
+function addPiece(sq, pce) {
 
 	var file = FilesBrd[sq];
 	var rank = RanksBrd[sq];
@@ -160,7 +160,7 @@ function AddGUIPiece(sq, pce) {
 	$("#Board").append(imageString);
 }
 
-function MoveGUIPiece(move) {
+function movePiece(move) {
 
 	var from = fromSq(move);
 	var to = toSq(move);
@@ -172,9 +172,9 @@ function MoveGUIPiece(move) {
 		} else {
 			epRemove = to + 10;
 		}
-		RemoveGUIPiece(epRemove);
+		removePiece(epRemove);
 	} else if(capturedP(move)) {
-		RemoveGUIPiece(to);
+		removePiece(to);
 	}
 
 	var file = FilesBrd[to];
@@ -191,14 +191,14 @@ function MoveGUIPiece(move) {
 
 	if(move & MFLAGCA) {
 		switch(to) {
-			case SQUARES.G1: RemoveGUIPiece(SQUARES.H1); AddGUIPiece(SQUARES.F1, PIECES.wR); break;
-			case SQUARES.C1: RemoveGUIPiece(SQUARES.A1); AddGUIPiece(SQUARES.D1, PIECES.wR); break;
-			case SQUARES.G8: RemoveGUIPiece(SQUARES.H8); AddGUIPiece(SQUARES.F8, PIECES.bR); break;
-			case SQUARES.C8: RemoveGUIPiece(SQUARES.A8); AddGUIPiece(SQUARES.D8, PIECES.bR); break;
+			case SQUARES.G1: removePiece(SQUARES.H1); addPiece(SQUARES.F1, PIECES.wR); break;
+			case SQUARES.C1: removePiece(SQUARES.A1); addPiece(SQUARES.D1, PIECES.wR); break;
+			case SQUARES.G8: removePiece(SQUARES.H8); addPiece(SQUARES.F8, PIECES.bR); break;
+			case SQUARES.C8: removePiece(SQUARES.A8); addPiece(SQUARES.D8, PIECES.bR); break;
 		}
 	} else if (promotedP(move)) {
-		RemoveGUIPiece(to);
-		AddGUIPiece(to, promotedP(move));
+		removePiece(to);
+		addPiece(to, promotedP(move));
 	}
 
 }
@@ -309,6 +309,6 @@ function StartSearch() {
 	SearchPosition();
 
 	MakeMove(searchC.best);
-	MoveGUIPiece(searchC.best);
+	movePiece(searchC.best);
 	CheckAndSet();
 }
