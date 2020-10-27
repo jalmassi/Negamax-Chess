@@ -79,6 +79,7 @@ function alphaBetaCapture(alpha, beta) { //alphabeta fn but only on captures
 	}
 
 	searchC.nodes++;
+	
 	//ply>0 because don't want exit search on first move
 	//checks if returning to same position in history or 50 move rule hit
 	if( (IsRepetition() || game.fiftyMove >= 100) && game.ply) {
