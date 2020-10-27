@@ -45,7 +45,7 @@ function SetInitialBoardPieces() {
 
 function DeSelectSq(sq) {
 	$('.Square').each( function(index) {
-		if(PieceIsOnSq(sq, $(this).position().top, $(this).position().left) == BOOL.TRUE) {
+		if(PieceIsOnSq(sq, $(this).position().top, $(this).position().left)) {
 				$(this).removeClass('SqSelected');
 		}
 	} );
@@ -53,7 +53,7 @@ function DeSelectSq(sq) {
 
 function SetSqSelected(sq) {
 	$('.Square').each( function(index) {
-		if(PieceIsOnSq(sq, $(this).position().top, $(this).position().left) == BOOL.TRUE) {
+		if(PieceIsOnSq(sq, $(this).position().top, $(this).position().left)) {
 				$(this).addClass('SqSelected');
 		}
 	} );

@@ -1,6 +1,6 @@
 $(function() {
 	init();
-	console.log("Main Init Called");
+	console.log("Main method");
 	NewGame(START_FEN);
 });
 
@@ -151,7 +151,7 @@ function InitmostLeastValue() {
 }
 
 function init() {
-	console.log("init() called");
+	console.log("initialization");
 	InitFilesRanksBrd();
 	InitHashKeys();
 	InitSq120To64();
